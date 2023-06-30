@@ -27,7 +27,6 @@ public class Posts {
     @Column
     private int like_cnt;
 
-    @Column(name = "id_member")
     @ManyToOne
     @JoinColumn(name = "id_member")
     private Member member;

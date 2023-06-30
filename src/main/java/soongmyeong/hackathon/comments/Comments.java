@@ -24,7 +24,7 @@ public class Comments {
     @Column
     private int like;
 
-    @Column(name = "id_member")
+
     @ManyToOne
     @JoinColumn(name = "id_member")
     private Member member;
