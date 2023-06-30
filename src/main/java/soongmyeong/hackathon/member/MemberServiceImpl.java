@@ -15,6 +15,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        if(memberRepository.findByNickname(memberRequestDto.getNickname()) != null) {
+            throw new IllegalArgumentException("이미 사용중인 닉네임입니다!");
+        }
         Member member = memberRepository.save(new Member(memberRequestDto.getNickname(), memberRequestDto.getPassword()));
         return new MemberResponseDto(member.getNickname());
     }
@@ -25,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
         if (member != null && member.getPassword().equals(memberRequestDto.getPassword())) {
             return new MemberResponseDto(member.getNickname());
         } else {
-            return null;
+            throw new IllegalArgumentException("동일한 닉네임 이미 존재!");
         }
     }
 }
