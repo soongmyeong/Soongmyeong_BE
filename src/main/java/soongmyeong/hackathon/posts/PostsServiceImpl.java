@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import soongmyeong.hackathon.comments.Comments;
 import soongmyeong.hackathon.comments.CommentsRepository;
+import soongmyeong.hackathon.comments.CommentsResponseDto;
 import soongmyeong.hackathon.member.Member;
 import soongmyeong.hackathon.member.MemberRepository;
 import soongmyeong.hackathon.type.BoardCate;
@@ -101,7 +102,11 @@ public class PostsServiceImpl implements PostsService{
         List<Comments> commentsList = commentsRepository.findAll();
 
         for(Comments comments : commentsList){
-//            if(comments.)
+            if(comments.getPosts().getId_posts().equals(id_posts)){
+                CommentsResponseDto commentsResponseDto = new CommentsResponseDto(comments.getContent());
+
+                postsAndCommentsDto.getCommentsDtoList().add(commentsResponseDto);
+            }
         }
 
         return postsAndCommentsDto;
