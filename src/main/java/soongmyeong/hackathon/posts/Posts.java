@@ -51,4 +51,14 @@ public class Posts {
         this.content=content;
         this.member = member;
     }
+
+    @Builder
+    public Posts(Long id_posts, String title, String content, int like_cnt, Member member, BoardCate category){
+        this.id_posts=id_posts;
+        this.title=title;
+        this.content=content;
+        this.like_cnt=like_cnt;
+        this.member=member;
+        this.category=category;
+    }
 }

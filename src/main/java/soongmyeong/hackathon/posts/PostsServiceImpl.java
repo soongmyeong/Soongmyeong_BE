@@ -7,10 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import soongmyeong.hackathon.comments.Comments;
 import soongmyeong.hackathon.comments.CommentsRepository;
 import soongmyeong.hackathon.member.Member;
+import soongmyeong.hackathon.member.MemberRepository;
 import soongmyeong.hackathon.type.BoardCate;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,7 +24,7 @@ public class PostsServiceImpl implements PostsService{
     @Autowired
     private final CommentsRepository commentsRepository;
     @Autowired
-    //private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public List<PostsResponseDto> showAllPostsInCategory(BoardCate category) {
@@ -49,23 +51,26 @@ public class PostsServiceImpl implements PostsService{
     }
 
     @Override
-    public Boolean enrollPosts(PostsRequestDto postsRequestDto) {
-        //Member member = memberRepository.findById(postsRequestDto.id_user).get();
+    public Boolean enrollPost(Long memberId, PostsRequestDto requestDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
 
-        //postsRepository.save(new Posts(postsRequestDto.getTitle(), postsRequestDto.getContent(), member));
+        postsRepository.save(new Posts(requestDto.getTitle(), requestDto.getContent(), 0, member, requestDto.getCategory()));
 
         return true;
     }
 
     @Override
-    public Boolean editPosts(PostsRequestDto postsRequestDto) {
-        //Member member = memberRepository.findById(postsRequestDto.id_user).get();
+    public Boolean editPosts(Long postId, PostsRequestDto postsRequestDto) {
+        Long memberId = postsRequestDto.getMemberId();
 
-        //Posts posts = new Posts(postsRequestDto.getTitle(), postsRequestDto.getContent()
-        // , postsRequestDto.getLikeCnt(), member, postsRequestDto.getCategory());
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
 
-        //postsRepository.save(posts);
+        Posts posts = new Posts(postId, postsRequestDto.getTitle(), postsRequestDto.getContent()
+         , postsRequestDto.getLikeCnt(), member, postsRequestDto.getCategory());
 
+        postsRepository.save(posts);
         return true;
     }
 

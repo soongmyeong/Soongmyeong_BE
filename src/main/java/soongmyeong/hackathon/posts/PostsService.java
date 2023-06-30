@@ -7,8 +7,8 @@ import java.util.List;
 public interface PostsService {
 
     List<PostsResponseDto> showAllPostsInCategory(BoardCate category);
-    Boolean enrollPosts(PostsRequestDto postsDto);
-    Boolean editPosts(PostsRequestDto postsDto);
+    Boolean enrollPost(Long memberId, PostsRequestDto requestDto);
+    Boolean editPosts(Long postId, PostsRequestDto postsDto);
     Boolean deletePosts(Long id_posts);
     PostsAndCommentsDto getSinglePosts(Long id_posts);
 }

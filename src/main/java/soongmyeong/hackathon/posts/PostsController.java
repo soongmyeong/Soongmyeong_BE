@@ -26,7 +26,7 @@ public class PostsController {
     @PostMapping("/{category}/main")
     public ResponseEntity<HttpStatus> enrollPosts(@PathVariable String category,
                                                   @RequestBody PostsRequestDto postsDto){
-        postsService.enrollPosts(postsDto);
+        postsService.enrollPost(postsDto.getMemberId(),postsDto);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -35,8 +35,9 @@ public class PostsController {
 
     @PutMapping("/{category}/main/{id_posts}")
     public ResponseEntity<HttpStatus> editPosts(@PathVariable String category,
+                                                @PathVariable Long id_posts,
                                                 @RequestBody PostsRequestDto postsDto){
-        postsService.editPosts(postsDto);
+        postsService.editPosts(id_posts, postsDto);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
