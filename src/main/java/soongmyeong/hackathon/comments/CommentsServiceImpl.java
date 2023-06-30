@@ -26,9 +26,12 @@ public class CommentsServiceImpl implements CommentsService{
 
     //댓글 생성
     @Override
-    public void postComment(String content,CommentsRequestDto commentsRequestDto) {
-        Optional<Member> byId = memberRepository.findById(commentsRequestDto.getMemberId());
-        Comments comments = commentsRepository.save(new Comments(commentsRequestDto.getContent(), commentsRequestDto.getIs_like(), commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
+    public void postComment(Long memberId, Long postsId, CommentsRequestDto requestDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
+        Comments comments = commentsRepository.save(new Comments(requestDto.getContent(), requestDto.getIs_like(), member,posts));
     }
 
     //댓글 수정
@@ -39,7 +42,7 @@ public class CommentsServiceImpl implements CommentsService{
             Comments comments = putComments.get();
             int isLike = comments.getIs_like();
             commentsRepository.delete(comments);
-            commentsRepository.save(new Comments(commentsRequestDto.getContent(), isLike,commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
+            //commentsRepository.save(new Comments(commentsRequestDto.getContent(), isLike,commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
         }
     }
 

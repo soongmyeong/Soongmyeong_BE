@@ -19,7 +19,7 @@ public class CommentsController {
             @PathVariable("id_posts") Long id_posts,
             @RequestBody CommentsRequestDto commentsRequestDto){
         String content = commentsRequestDto.getContent();
-        commentsService.postComment(content, commentsRequestDto);
+        commentsService.postComment(commentsRequestDto.getMemberId(),commentsRequestDto.getPostId(),commentsRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(HttpStatus.OK);

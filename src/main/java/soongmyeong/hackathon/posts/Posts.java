@@ -30,7 +30,6 @@ public class Posts {
     private int like_cnt;
 
     @Column
-    @Enumerated(value = EnumType.STRING)
     private BoardCate category;
 
     @ManyToOne
