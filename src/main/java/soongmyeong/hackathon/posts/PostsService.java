@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PostsService {
 
-    List<PostsDto> showAllPostsInCategory(BoardCate category);
-    Boolean enrollPosts(PostsDto postsDto);
-    Boolean editPosts(PostsDto postsDto);
+    List<PostsResponseDto> showAllPostsInCategory(BoardCate category);
+    Boolean enrollPost(Long memberId, PostsRequestDto requestDto);
+    Boolean editPosts(Long postId, PostsRequestDto postsDto);
     Boolean deletePosts(Long id_posts);
     PostsAndCommentsDto getSinglePosts(Long id_posts);
 }

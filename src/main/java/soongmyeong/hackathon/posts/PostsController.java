@@ -15,8 +15,8 @@ public class PostsController {
     private final PostsService postsService;
 
     @GetMapping("/{category}/main")
-    public ResponseEntity<List<PostsDto>> enterBoardWithCategory(@PathVariable String category){
-        List<PostsDto> postsDtoList = postsService.showAllPostsInCategory(BoardCate.valueOf(category));
+    public ResponseEntity<List<PostsResponseDto>> enterBoardWithCategory(@PathVariable String category){
+        List<PostsResponseDto> postsDtoList = postsService.showAllPostsInCategory(BoardCate.valueOf(category));
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -25,8 +25,8 @@ public class PostsController {
 
     @PostMapping("/{category}/main")
     public ResponseEntity<HttpStatus> enrollPosts(@PathVariable String category,
-                                                  @RequestBody PostsDto postsDto){
-        postsService.enrollPosts(postsDto);
+                                                  @RequestBody PostsRequestDto postsDto){
+        postsService.enrollPost(postsDto.getMemberId(),postsDto);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -35,8 +35,9 @@ public class PostsController {
 
     @PutMapping("/{category}/main/{id_posts}")
     public ResponseEntity<HttpStatus> editPosts(@PathVariable String category,
-                                                @RequestBody PostsDto postsDto){
-        postsService.editPosts(postsDto);
+                                                @PathVariable Long id_posts,
+                                                @RequestBody PostsRequestDto postsDto){
+        postsService.editPosts(id_posts, postsDto);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
