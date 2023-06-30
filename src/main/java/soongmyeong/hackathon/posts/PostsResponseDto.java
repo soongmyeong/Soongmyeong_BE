@@ -6,11 +6,11 @@ import soongmyeong.hackathon.type.BoardCate;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostsDto {
+public class PostsResponseDto {
 
+    Long id;        //postId
     String title;
     String content;
-    Long id_user;
-    Long id_posts;
+    String nickname;
     BoardCate category;
 }

@@ -37,11 +37,18 @@ public class Posts {
     private Member member;
 
     @Builder
-    public Posts(String title, String content, int like_cnt, Member member){
+    public Posts(String title, String content, int like_cnt, Member member, BoardCate category){
         this.title=title;
         this.content=content;
         this.like_cnt=like_cnt;
         this.member=member;
+        this.category=category;
     }
 
+    @Builder
+    public Posts(String title, String content, Member member){
+        this.title=title;
+        this.content=content;
+        this.member = member;
+    }
 }
