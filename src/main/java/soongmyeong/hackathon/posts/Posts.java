@@ -1,14 +1,16 @@
 package soongmyeong.hackathon.posts;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import soongmyeong.hackathon.member.Member;
+import soongmyeong.hackathon.type.BoardCate;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name="posts")
 public class Posts {
@@ -26,6 +28,9 @@ public class Posts {
 
     @Column
     private int like_cnt;
+
+    @Column
+    private BoardCate category;
 
     @ManyToOne
     @JoinColumn(name = "id_member")
