@@ -3,6 +3,7 @@ package soongmyeong.hackathon.comments;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import soongmyeong.hackathon.member.Member;
 import soongmyeong.hackathon.posts.Posts;
 import soongmyeong.hackathon.posts.PostsRepository;
 import soongmyeong.hackathon.type.BoardCate;
@@ -18,10 +19,13 @@ public class CommentsServiceImpl implements CommentsService{
 
 
 
+
+
+
     //댓글 생성
     @Override
     public void postComment(String content,CommentsRequestDto commentsRequestDto) {
-        Comments comments = commentsRepository.save(new Comments(commentsRequestDto.getContent(), commentsRequestDto.getIs_like()));
+        Comments comments = commentsRepository.save(new Comments(commentsRequestDto.getContent(), commentsRequestDto.getIs_like(), commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
     }
 
     //댓글 수정
@@ -32,7 +36,7 @@ public class CommentsServiceImpl implements CommentsService{
             Comments comments = putComments.get();
             int isLike = comments.getIs_like();
             commentsRepository.delete(comments);
-            commentsRepository.save(new Comments(commentsRequestDto.getContent(), isLike));
+            commentsRepository.save(new Comments(commentsRequestDto.getContent(), isLike,commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
         }
     }
 

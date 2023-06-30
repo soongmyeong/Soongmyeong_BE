@@ -36,7 +36,7 @@ public class Comments {
     private Posts posts;
 
     @Builder
-    public Comments(String content, int is_like){
+    public Comments(String content, int is_like, Long id_member, Long id_posts){
         this.content=content;
         this.is_like=is_like;
     }
