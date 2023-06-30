@@ -1,8 +1,10 @@
 package soongmyeong.hackathon.member;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import soongmyeong.hackathon.comments.Comments;
 import soongmyeong.hackathon.posts.Posts;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name="member")
 public class Member {
@@ -26,6 +28,8 @@ public class Member {
     @Column(length = 25, nullable = false)
     private String password;
 
+
+
     @OneToMany(mappedBy = "member")
     private List<Posts> posts = new ArrayList<>();
 
@@ -38,4 +42,6 @@ public class Member {
         this.nickname=nickname;
         this.password=password;
     }
+
+
 }
