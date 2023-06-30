@@ -87,6 +87,7 @@ public class PostsServiceImpl implements PostsService{
     @Override
     public PostsAndCommentsDto getSinglePosts(Long id_posts) {
         PostsAndCommentsDto postsAndCommentsDto = new PostsAndCommentsDto();
+        postsAndCommentsDto.setCommentsDtoList(new LinkedList<>());
 
         Posts posts = postsRepository.findById(id_posts).get();
         PostsResponseDto postsResponseDto = new PostsResponseDto();
