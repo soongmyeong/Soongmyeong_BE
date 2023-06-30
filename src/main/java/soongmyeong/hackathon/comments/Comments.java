@@ -22,7 +22,7 @@ public class Comments {
     private String content;
 
     @Column
-    private int like;
+    private int is_like;
 
 
     @ManyToOne
@@ -30,8 +30,8 @@ public class Comments {
     private Member member;
 
     @Builder
-    public Comments(String title, String content, int like){
+    public Comments(String title, String content, int is_like){
         this.content=content;
-        this.like=like;
+        this.is_like=is_like;
     }
 }
