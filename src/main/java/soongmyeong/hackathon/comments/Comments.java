@@ -1,14 +1,16 @@
 package soongmyeong.hackathon.comments;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import soongmyeong.hackathon.member.Member;
+import soongmyeong.hackathon.posts.Posts;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name="comments")
 public class Comments {
@@ -29,9 +31,15 @@ public class Comments {
     @JoinColumn(name = "id_member")
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name = "id_posts")
+    private Posts posts;
+
     @Builder
-    public Comments(String title, String content, int is_like){
+    public Comments(String content, int is_like, Member member, Posts posts){
         this.content=content;
         this.is_like=is_like;
+        this.member = member;
+        this.posts = posts;
     }
 }
