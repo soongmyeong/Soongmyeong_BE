@@ -86,19 +86,22 @@ public class PostsServiceImpl implements PostsService{
     @Override
     public PostsAndCommentsDto getSinglePosts(Long id_posts) {
         PostsAndCommentsDto postsAndCommentsDto = new PostsAndCommentsDto();
+
         Posts posts = postsRepository.findById(id_posts).get();
-        PostsResponseDto postsDto = new PostsResponseDto();
+        PostsResponseDto postsResponseDto = new PostsResponseDto();
 
-        postsDto.setCategory(posts.getCategory());
-        postsDto.setContent(posts.getContent());
-        postsDto.setTitle(posts.getTitle());
+        postsResponseDto.setCategory(posts.getCategory());
+        postsResponseDto.setContent(posts.getContent());
+        postsResponseDto.setTitle(posts.getTitle());
+        postsResponseDto.setNickname(posts.getMember().getNickname());
+        postsResponseDto.setId(posts.getId_posts());
 
-        postsAndCommentsDto.setPostsDto(postsDto);
+        postsAndCommentsDto.setPostsDto(postsResponseDto);
 
         List<Comments> commentsList = commentsRepository.findAll();
 
         for(Comments comments : commentsList){
-//            if(comments.getPost_id().)
+//            if(comments.)
         }
 
         return postsAndCommentsDto;
