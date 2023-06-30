@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import soongmyeong.hackathon.member.Member;
+import soongmyeong.hackathon.posts.Posts;
 
 import javax.persistence.*;
 
@@ -30,8 +31,12 @@ public class Comments {
     @JoinColumn(name = "id_member")
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name = "id_posts")
+    private Posts posts;
+
     @Builder
-    public Comments(String title, String content, int is_like){
+    public Comments(String content, int is_like, Long id_member, Long id_posts){
         this.content=content;
         this.is_like=is_like;
     }

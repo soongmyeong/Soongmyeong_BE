@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import soongmyeong.hackathon.type.BoardCate;
 
 @RestController
 @RequestMapping()
@@ -14,36 +15,37 @@ public class CommentsController {
 
     @PostMapping("{category}/main/{id_posts}/comments")
     public ResponseEntity<HttpStatus> postComment(
-            @PathVariable("category") String category,
+            @PathVariable("category") BoardCate category,
             @PathVariable("id_posts") Long id_posts,
             @RequestBody CommentsRequestDto commentsRequestDto){
         String content = commentsRequestDto.getContent();
-        CommentsResponseDto commentsResponseDto = commentsService.postComment(category,id_posts,content);
+        commentsService.postComment(content, commentsRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(HttpStatus.OK);
     }
 
+    //댓글 수정
     @PutMapping("{category}/main/{id_posts}/comments/{id_comments}")
     public ResponseEntity<HttpStatus> putComment(
-            @PathVariable("category") String category,
+            @PathVariable("category") BoardCate category,
             @PathVariable("id_posts") Long id_posts,
             @PathVariable("id_comments") Long id_comments,
             @RequestBody CommentsRequestDto commentsRequestDto){
         String content = commentsRequestDto.getContent();
-        CommentsResponseDto commentsResponseDto = commentsService.putComment(category,id_posts,id_comments,content);
+        commentsService.putComment(content, commentsRequestDto, id_comments);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(HttpStatus.OK);
     }
 
+    //댓글 삭제
     @DeleteMapping("{category}/main/{id_posts}/comments/{id_comments}")
     public ResponseEntity<HttpStatus> deleteComment(
-            @PathVariable("category") String category,
+            @PathVariable("category") BoardCate category,
             @PathVariable("id_posts") Long id_posts,
-            @PathVariable("id_comments") Long id_comments,
-            @RequestBody CommentsRequestDto commentsRequestDto){
-        String content = commentsRequestDto.getContent();
+            @PathVariable("id_comments") Long id_comments){
+        commentsService.deleteComment(id_comments);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(HttpStatus.OK);

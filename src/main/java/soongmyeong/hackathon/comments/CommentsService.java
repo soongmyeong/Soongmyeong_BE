@@ -1,7 +1,11 @@
 package soongmyeong.hackathon.comments;
 
-public interface CommentsService {
-    CommentsResponseDto postComment(String category, Long id_posts,String content);
+import soongmyeong.hackathon.type.BoardCate;
 
-    CommentsResponseDto putComment(String category, Long id_posts,Long id_comments,String content);
+public interface CommentsService {
+    void postComment(String content ,CommentsRequestDto commentsRequestDto);
+
+    void putComment(String content, CommentsRequestDto commentsRequestDto, Long id_comments);
+
+    void deleteComment(Long id_comments);
 }
