@@ -33,7 +33,7 @@ public class CommentsController {
             @PathVariable("id_comments") Long id_comments,
             @RequestBody CommentsRequestDto commentsRequestDto){
         String content = commentsRequestDto.getContent();
-        commentsService.putComment(content, commentsRequestDto, id_comments);
+        commentsService.putComment(commentsRequestDto.getMemberId(),commentsRequestDto.getPostId(),commentsRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(HttpStatus.OK);

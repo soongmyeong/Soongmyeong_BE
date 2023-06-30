@@ -30,20 +30,23 @@ public class CommentsServiceImpl implements CommentsService{
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
         Posts posts = postsRepository.findById(postsId)
-                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Posts does not exist"));
         Comments comments = commentsRepository.save(new Comments(requestDto.getContent(), requestDto.getIs_like(), member,posts));
     }
 
     //댓글 수정
     @Override
-    public void putComment(String content, CommentsRequestDto commentsRequestDto, Long id_comments) {
-        Optional<Comments> putComments = commentsRepository.findById(id_comments);
-        if(putComments.isPresent()){
-            Comments comments = putComments.get();
-            int isLike = comments.getIs_like();
-            commentsRepository.delete(comments);
-            //commentsRepository.save(new Comments(commentsRequestDto.getContent(), isLike,commentsRequestDto.getMemberId(),commentsRequestDto.getPostId()));
-        }
+    public void putComment(Long memberId, Long postsId, CommentsRequestDto requestDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member does not exist"));
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException("Posts does not exist"));
+        Comments deleteComments = commentsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException("Comments does not exist"));
+        commentsRepository.delete(deleteComments);
+        int isLike = deleteComments.getIs_like();
+        commentsRepository.delete(deleteComments);
+        Comments comments = commentsRepository.save(new Comments(requestDto.getContent(), isLike, member,posts));
     }
 
     @Override
